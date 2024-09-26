@@ -1,14 +1,21 @@
+#include<random>
 #include <iostream>
 #include <map>
 #include <string>
 int main() {
+ std::random_device rd;
+ std::mt19937 eng(rd());
+ std::uniform_int_distribution<std::mt19937::result_type> dst(1,25);
+ int change = dst(eng);
+ std::cout << change << "\n";
  std::map<char,char> map;
  char currCha = 'a';
  while (currCha <= 'z') {
-  char val = currCha + 3;
-  if (val > 'z') {
-    val -= 26;
+  int charAsNum = currCha - change;
+  if (charAsNum < 97) {
+    charAsNum += 26;
   }
+  char val = charAsNum;
   map[currCha] = val;
   currCha++;
  }
